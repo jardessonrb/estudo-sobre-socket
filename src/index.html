@@ -1,36 +1,102 @@
 <!DOCTYPE html>
 <html>
    <head>
-      <title>Hello world</title>
+      <title>Chat Real Time</title>
       <link rel="stylesheet" type="text/css" href="styles/styles.css">
    </head>
    <script src = "/socket.io/socket.io.js"></script>
+   <style>
+      .content {
+         display: flex;
+         align-items: center;
+         flex-direction: column; 
+         width: 100%;
+         height: 100vh;
+      }
+      .messages-area {
+         display: flex;
+         flex-direction: inherit;
+         width: 80%;
+         height: 50vh;
+         background-color: rgba(229, 228, 231, 0.801);
+         border:1px solid rgba(182, 181, 184, 0.801);;
+         padding: 10px;
+      }
+      .send-area {
+         display: flex;
+         justify-content: space-between;
+         width: 80%;
+         padding-top: 10px;
+         background-color: rgba(255, 255, 255, 0.801);
+      }
+      .send-area input{
+         width: 75%;
+         min-height: 30px;
+         border: 1px solid rgba(172, 168, 168, 0.801);
+         border-radius: 5%;
+         outline: none;
+      }
+      .send-area input:focus{
+         border: 1px solid rgba(121, 118, 118, 0.801);
+      }
+      .send-area button{
+         width: 20%;
+         background-color: rgba(11, 138, 74, 0.801);
+         color: rgba(255, 254, 254, 0.973);
+         border: none;
+         border-radius: 5%;
+         cursor: pointer;
+      }
+      .messages-area .send {
+         margin-left: 50%;
+         max-width: 45%;
+         padding: 2px;
+         margin-top: 5px;
+         background-color: rgba(156, 42, 218, 0.801);
+         color: rgba(245, 243, 247, 0.801);
+      }
+      .messages-area .received {
+         margin-right: 50%;
+         max-width: 45%;
+         padding: 2px;
+         margin-top: 5px;
+         background-color: rgba(19, 146, 72, 0.801);
+         color: rgba(245, 243, 247, 0.801);
+      }
+
+   </style>
    <body>
-      <div class="conteudo">
-         <textarea name="respostas" id="area-response" cols="30" rows="10"></textarea>
-         <div class="area-envio">
-            <input type="text" id="in" placeholder="Digite sua mensagem">
-            <button onclick="enviar()">Enviar</button>
+      <div class="content">
+         <div class="messages-area" id="messages-area">
+         </div>
+         <div class="send-area">
+            <input type="text" id="message-input" placeholder="Digite sua mensagem">
+            <button onclick="sendMessage()">Enviar</button>
          </div>
       </div>
    </body>
    <script>
       const socket = io("localhost:3333");
+      var input = document.getElementById("message-input");
+      var divMessages = document.getElementById("messages-area");
 
-      function enviar(){
-         var input = document.getElementById("in").value;
-         socket.emit("message", input);
-         escrever(input);
+      function sendMessage(){
+         socket.emit("message", input.value);
+         writeMessage(input.value, "send");
+         clearInput();
       }
 
-      var textArea = document.getElementById("area-response");
-      function escrever(message){
-         textArea.innerHTML = textArea.value += message;
-         textArea.innerHTML = textArea.value += "\n";
+      function clearInput(){
+         input.value = "";
+      }
+
+      function writeMessage(message, type){
+         const messageReceived = `<span class="${type}">${message}</span>`;
+         divMessages.innerHTML = divMessages.innerHTML += messageReceived;
       }
 
       socket.on("response", (args) => {
-        escrever(args);
+        writeMessage(args, "received");
       })
 
    </script>
