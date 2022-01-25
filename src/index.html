@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <title>Hello world</title>
+      <link rel="stylesheet" type="text/css" href="styles/styles.css">
+   </head>
+   <script src = "/socket.io/socket.io.js"></script>
+   <body>
+      <div class="conteudo">
+         <textarea name="respostas" id="area-response" cols="30" rows="10"></textarea>
+         <div class="area-envio">
+            <input type="text" id="in" placeholder="Digite sua mensagem">
+            <button onclick="enviar()">Enviar</button>
+         </div>
+      </div>
+   </body>
+   <script>
+      const socket = io("localhost:3333");
+
+      function enviar(){
+         var input = document.getElementById("in").value;
+         socket.emit("message", input);
+         escrever(input);
+      }
+
+      var textArea = document.getElementById("area-response");
+      function escrever(message){
+         textArea.innerHTML = textArea.value += message;
+         textArea.innerHTML = textArea.value += "\n";
+      }
+
+      socket.on("response", (args) => {
+        escrever(args);
+      })
+
+   </script>
+</html>
