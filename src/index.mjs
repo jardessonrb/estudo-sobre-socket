@@ -16,13 +16,26 @@ app.get("/", (_, response) => {
 });
 
 app.use(express.static(urlPath + '/styles'));
-
+const connecteds = new Map();
 io.on("connection", (socket) => {
     console.log('A user connected with id: ', socket.id);
+    connecteds.set(socket.id, socket.id);
+
+    socket.broadcast.emit("status", "Online");
+
+    if(connecteds.size > 1){
+        socket.emit("status", "Online");
+    }
 
     socket.on('disconnect', function () {
       console.log(`A user with id: ${socket.id} disconnected`);
+      connecteds.delete(socket.id);
+      socket.broadcast.emit("status", "Offline");
     });
+
+    socket.on("set_status", (...args) => {
+        socket.broadcast.emit("status", args);
+    })
 
     socket.on("message", (...args) => {
         socket.broadcast.emit("response", args);

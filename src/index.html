@@ -63,14 +63,24 @@
          background-color: rgba(19, 146, 72, 0.801);
          color: rgba(245, 243, 247, 0.801);
       }
+      .status-area {
+         display: flex;
+         flex-direction: inherit;
+         width: 80%;
+         height: 5vh;
+         background-color: rgba(229, 228, 231, 0.801);
+         border:1px solid rgba(182, 181, 184, 0.801);;
+         padding: 10px;
+      }
 
    </style>
    <body>
       <div class="content">
+         <div class="status-area" id="status-area"></div>
          <div class="messages-area" id="messages-area">
          </div>
          <div class="send-area">
-            <input type="text" id="message-input" placeholder="Digite sua mensagem">
+            <input type="text" onkeyup="writeInput()" id="message-input" placeholder="Digite sua mensagem">
             <button onclick="sendMessage()">Enviar</button>
          </div>
       </div>
@@ -79,6 +89,8 @@
       const socket = io("localhost:3333");
       var input = document.getElementById("message-input");
       var divMessages = document.getElementById("messages-area");
+      var divStatus   = document.getElementById("status-area");
+      var idSetTimeout;
 
       function sendMessage(){
          socket.emit("message", input.value);
@@ -90,14 +102,34 @@
          input.value = "";
       }
 
+      function writeInput(){
+         if(input.value.length > 0) {
+            socket.emit("set_status", "Digitando ...");
+         }
+
+         clearTimeout(idSetTimeout);
+         idSetTimeout =  setTimeout(() => {
+            socket.emit("set_status", "Online");
+         }, 1000);
+      }
+
       function writeMessage(message, type){
          const messageReceived = `<span class="${type}">${message}</span>`;
          divMessages.innerHTML = divMessages.innerHTML += messageReceived;
       }
 
+      function setStatus(status){
+         const statusReceived = `<span class="status">${status}</span>`;
+         divStatus.innerHTML = statusReceived;
+      }
+
       socket.on("response", (args) => {
         writeMessage(args, "received");
-      })
+      });
+
+      socket.on("status", (args) => {
+         setStatus(args);
+      });
 
    </script>
 </html>
