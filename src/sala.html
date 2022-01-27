@@ -64,23 +64,43 @@
          color: rgba(245, 243, 247, 0.801);
       }
       .status-area {
-         display: flex;
-         flex-direction: inherit;
-         width: 80%;
-         height: 5vh;
-         background-color: rgba(229, 228, 231, 0.801);
-         border:1px solid rgba(182, 181, 184, 0.801);;
-         padding: 10px;
+        display: flex;
+        justify-content: space-between;
+        width: 80%;
+        padding-top: 10px;
+        background-color: rgba(255, 255, 255, 0.801);
       }
-      
-      </style>
+
+      .status-area input{
+         width: 75%;
+         min-height: 30px;
+         border: 1px solid rgba(172, 168, 168, 0.801);
+         border-radius: 5%;
+         outline: none;
+      }
+      .status-area input:focus{
+         border: 1px solid rgba(121, 118, 118, 0.801);
+      }
+      .status-area button{
+         width: 20%;
+         background-color: rgba(123, 11, 138, 0.801);
+         color: rgba(255, 254, 254, 0.973);
+         border: none;
+         border-radius: 5%;
+         cursor: pointer;
+      }
+
+   </style>
    <body>
       <div class="content">
-         <div class="status-area" id="status-area"></div>
+         <div class="status-area" id="sala-area">
+            <input type="text" id="sala-input" placeholder="Digite o ID da sala">
+            <button onclick="sendRoomId()">ID Sala</button>
+         </div>
          <div class="messages-area" id="messages-area">
          </div>
          <div class="send-area">
-            <input type="text" onkeyup="writeInput()" id="message-input" placeholder="Digite sua mensagem">
+            <input type="text" id="message-input" placeholder="Digite sua mensagem">
             <button onclick="sendMessage()">Enviar</button>
          </div>
       </div>
@@ -88,12 +108,12 @@
    <script>
       const socket = io("localhost:3333");
       var input = document.getElementById("message-input");
+      var inputIdSala = document.getElementById("sala-input");
       var divMessages = document.getElementById("messages-area");
-      var divStatus   = document.getElementById("status-area");
       var idSetTimeout;
 
       function sendMessage(){
-         socket.emit("message-unique", input.value);
+         socket.emit("message-group", inputIdSala.value, input.value);
          writeMessage(input.value, "send");
          clearInput();
       }
@@ -118,18 +138,15 @@
          divMessages.innerHTML = divMessages.innerHTML += messageReceived;
       }
 
-      function setStatus(status){
-         const statusReceived = `<span class="status">${status}</span>`;
-         divStatus.innerHTML = statusReceived;
-      }
-
       socket.on("response", (args) => {
         writeMessage(args, "received");
       });
 
-      socket.on("status", (args) => {
-         setStatus(args);
-      });
+      function sendRoomId(){
+        const idSala = inputIdSala.value;
+        console.log(idSala);
+        socket.emit("create-room", idSala);
+      }
 
    </script>
 </html>
