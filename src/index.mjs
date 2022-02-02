@@ -17,9 +17,17 @@ app.get("/", (_, response) => {
 });
 chat(app, io);
 
+app.get("/dama", (_, response) => {
+    response.sendFile(path.join(urlPath, "dama.html"));
+});
 app.get("/sala", (_, response) => {
     response.sendFile(path.join(urlPath, "sala.html"));
 });
+
+chat(app, io);
+
+app.use('/styles', express.static(path.join(urlPath, "styles")));
+app.use('/scripts', express.static(path.join(urlPath, "scripts")));
 
 httpServer.listen(portRunningServer, () => {
     console.log(`Server is running in port ${portRunningServer}`);

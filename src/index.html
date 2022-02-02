@@ -2,78 +2,9 @@
 <html>
    <head>
       <title>Chat Real Time</title>
-      <link rel="stylesheet" type="text/css" href="styles/styles.css">
+      <link rel="stylesheet" type="text/css" href="http://localhost:3333/styles/chat.css">
    </head>
    <script src = "/socket.io/socket.io.js"></script>
-   <style>
-      .content {
-         display: flex;
-         align-items: center;
-         flex-direction: column; 
-         width: 100%;
-         height: 100vh;
-      }
-      .messages-area {
-         display: flex;
-         flex-direction: inherit;
-         width: 80%;
-         height: 50vh;
-         background-color: rgba(229, 228, 231, 0.801);
-         border:1px solid rgba(182, 181, 184, 0.801);;
-         padding: 10px;
-      }
-      .send-area {
-         display: flex;
-         justify-content: space-between;
-         width: 80%;
-         padding-top: 10px;
-         background-color: rgba(255, 255, 255, 0.801);
-      }
-      .send-area input{
-         width: 75%;
-         min-height: 30px;
-         border: 1px solid rgba(172, 168, 168, 0.801);
-         border-radius: 5%;
-         outline: none;
-      }
-      .send-area input:focus{
-         border: 1px solid rgba(121, 118, 118, 0.801);
-      }
-      .send-area button{
-         width: 20%;
-         background-color: rgba(11, 138, 74, 0.801);
-         color: rgba(255, 254, 254, 0.973);
-         border: none;
-         border-radius: 5%;
-         cursor: pointer;
-      }
-      .messages-area .send {
-         margin-left: 50%;
-         max-width: 45%;
-         padding: 2px;
-         margin-top: 5px;
-         background-color: rgba(156, 42, 218, 0.801);
-         color: rgba(245, 243, 247, 0.801);
-      }
-      .messages-area .received {
-         margin-right: 50%;
-         max-width: 45%;
-         padding: 2px;
-         margin-top: 5px;
-         background-color: rgba(19, 146, 72, 0.801);
-         color: rgba(245, 243, 247, 0.801);
-      }
-      .status-area {
-         display: flex;
-         flex-direction: inherit;
-         width: 80%;
-         height: 5vh;
-         background-color: rgba(229, 228, 231, 0.801);
-         border:1px solid rgba(182, 181, 184, 0.801);;
-         padding: 10px;
-      }
-      
-      </style>
    <body>
       <div class="content">
          <div class="status-area" id="status-area"></div>
