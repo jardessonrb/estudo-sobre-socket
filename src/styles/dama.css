@@ -48,7 +48,7 @@
     justify-content: flex-start;
     align-items: flex-start;
 
-    border: 1px solid rgba(187, 212, 42, 0.671);
+border: 1px solid rgba(187, 212, 42, 0.671);
 }
 
 .area {
@@ -61,6 +61,7 @@
 }
 
 .black {
+    cursor: pointer;
     background-color: black;
 }
 
@@ -73,8 +74,13 @@
     height: 90%;
     border-radius: 50%;
     color: red;
+    cursor: pointer;
 }
 
-.black-piece {
-    background-color: rgb(37, 36, 36);
+.orange-piece {
+    background-color: rgb(167, 93, 23);
+}
+
+.red-piece {
+    background-color: rgb(167, 40, 23);
 }

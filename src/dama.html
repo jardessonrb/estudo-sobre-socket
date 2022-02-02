@@ -23,84 +23,131 @@
 
           </div>
           <div class="board">
-              <div class="area white" id="0:0">
-                  <button class="piece black-piece" id="1" onclick="select('1')"></button>
-              </div>
-              <div class="area black" id="0:1"></div>
-              <div class="area white" id="0:2"></div>
-              <div class="area black" id="0:3"></div>
-              <div class="area white" id="0:4"></div>
-              <div class="area black" id="0:5"></div>
-              <div class="area white" id="0:6"></div>
-              <div class="area black" id="0:7"></div>
+            <div class="area white" id="0:0" data-teste="opa">
+            </div>
+            <div class="area black" onclick="jump('0:1')" id="0:1">
+                <button class="piece orange-piece" id="1" onclick="select('1')"></button>
+            </div>
+            <div class="area white" id="0:2"></div>
+            <div class="area black" onclick="jump('0:3')" id="0:3">
+                <button class="piece orange-piece" id="2" onclick="select('2')"></button>
+            </div>
+            <div class="area white" id="0:4"></div>
+            <div class="area black" onclick="jump('0:5')" id="0:5">
+                <button class="piece orange-piece" id="3" onclick="select('3')"></button>
+            </div>
+            <div class="area white" id="0:6"></div>
+            <div class="area black" onclick="jump('0:7')" id="0:7">
+                <button class="piece orange-piece" id="4" onclick="select('4')"></button>
+            </div>
 
-              <div class="area black" id="1:0"></div>
-              <div class="area white" id="1:1" onclick="finish('1:1')"></div>
-              <div class="area black" id="1:2"></div>
-              <div class="area white" id="1:3"></div>
-              <div class="area black" id="1:4"></div>
-              <div class="area white" id="1:5"></div>
-              <div class="area black" id="1:6"></div>
-              <div class="area white" id="1:7"></div>
-              
-              <div class="area white" id="2:0"></div>
-              <div class="area black" id="2:1"></div>
-              <div class="area white" id="2:2"></div>
-              <div class="area black" id="2:3"></div>
-              <div class="area white" id="2:4"></div>
-              <div class="area black" id="2:5"></div>
-              <div class="area white" id="2:6"></div>
-              <div class="area black" id="2:7"></div>
+            <div class="area black" onclick="jump('1:0')" id="1:0">
+                <button class="piece orange-piece" id="5" onclick="select('5')"></button>
+            </div>
+            <div class="area white" id="1:1"></div>
+            <div class="area black" onclick="jump('1:2')" id="1:2">
+                <button class="piece orange-piece" id="6" onclick="select('6')"></button>
+            </div>
+            <div class="area white" id="1:3"></div>
+            <div class="area black" onclick="jump('1:4')" id="1:4">
+                <button class="piece orange-piece" id="7" onclick="select('7')"></button>
+            </div>
+            <div class="area white" id="1:5"></div>
+            <div class="area black" onclick="jump('1:6')" id="1:6">
+                <button class="piece orange-piece" id="8" onclick="select('8')"></button>
+            </div>
+            <div class="area white" id="1:7"></div>
+            
+            <div class="area white" id="2:0"></div>
+            <div class="area black" onclick="jump('2:1')" id="2:1">
+                <button class="piece orange-piece" id="9" onclick="select('9')"></button>
+            </div>
+            <div class="area white" id="2:2"></div>
+            <div class="area black" onclick="jump('2:3')" id="2:3">
+                <button class="piece orange-piece" id="10" onclick="select('10')"></button>
+            </div>
+            <div class="area white" id="2:4"></div>
+            <div class="area black" onclick="jump('2:5')" id="2:5">
+                <button class="piece orange-piece" id="11" onclick="select('11')"></button>
+            </div>
+            <div class="area white" id="2:6"></div>
+            <div class="area black" onclick="jump('2:7')" id="2:7">
+                <button class="piece orange-piece" id="12" onclick="select('12')"></button>
+            </div>
 
-              <div class="area black" id="3:0"></div>
-              <div class="area white" id="3:1"></div>
-              <div class="area black" id="3:2"></div>
-              <div class="area white" id="3:3"></div>
-              <div class="area black" id="3:4"></div>
-              <div class="area white" id="3:5"></div>
-              <div class="area black" id="3:6"></div>
-              <div class="area white" id="3:7"></div>
+            <div class="area black" onclick="jump('3:0')" id="3:0"></div>
+            <div class="area white" id="3:1"></div>
+            <div class="area black" onclick="jump('3:2')" id="3:2"></div>
+            <div class="area white" id="3:3"></div>
+            <div class="area black" onclick="jump('3:4')" id="3:4"></div>
+            <div class="area white" id="3:5"></div>
+            <div class="area black" onclick="jump('3:6')" id="3:6"></div>
+            <div class="area white" id="3:7"></div>
 
-              <div class="area white" id="4:0"></div>
-              <div class="area black" id="4:1"></div>
-              <div class="area white" id="4:2"></div>
-              <div class="area black" id="4:3"></div>
-              <div class="area white" id="4:4"></div>
-              <div class="area black" id="4:5"></div>
-              <div class="area white" id="4:6"></div>
-              <div class="area black" id="4:7"></div>
+            <div class="area white" id="4:0"></div>
+            <div class="area black" onclick="jump('4:1')" id="4:1"></div>
+            <div class="area white" id="4:2"></div>
+            <div class="area black" onclick="jump('4:3')" id="4:3"></div>
+            <div class="area white" id="4:4"></div>
+            <div class="area black" onclick="jump('4:5')" id="4:5"></div>
+            <div class="area white" id="4:6"></div>
+            <div class="area black" onclick="jump('4:7')" id="4:7"></div>
 
-              <div class="area black" id="5:0"></div>
-              <div class="area white" id="5:1"></div>
-              <div class="area black" id="5:2"></div>
-              <div class="area white" id="5:3"></div>
-              <div class="area black" id="5:4"></div>
-              <div class="area white" id="5:5"></div>
-              <div class="area black" id="5:6"></div>
-              <div class="area white" id="5:7"></div>
-              
-              <div class="area white" id="6:0"></div>
-              <div class="area black" id="6:1"></div>
-              <div class="area white" id="6:2"></div>
-              <div class="area black" id="6:3"></div>
-              <div class="area white" id="6:4"></div>
-              <div class="area black" id="6:5"></div>
-              <div class="area white" id="6:6"></div>
-              <div class="area black" id="6:7"></div>
+            <div class="area black" onclick="jump('5:0')" id="5:0">
+                <button class="piece red-piece" id="13" onclick="select('13')"></button>
+            </div>
+            <div class="area white" id="5:1"></div>
+            <div class="area black" onclick="jump('5:2')" id="5:2">
+                <button class="piece red-piece" id="14" onclick="select('14')"></button>
+            </div>
+            <div class="area white" id="5:3"></div>
+            <div class="area black" onclick="jump('5:4')" id="5:4">
+                <button class="piece red-piece" id="15" onclick="select('15')"></button>
+            </div>
+            <div class="area white" id="5:5"></div>
+            <div class="area black" onclick="jump('5:6')" id="5:6">
+                <button class="piece red-piece" id="16" onclick="select('16')"></button>
+            </div>
+            <div class="area white" id="5:7"></div>
+            
+            <div class="area white" id="6:0"></div>
+            <div class="area black" onclick="jump('6:1')" id="6:1">
+                <button class="piece red-piece" id="17" onclick="select('17')"></button>
+            </div>
+            <div class="area white" id="6:2"></div>
+            <div class="area black" onclick="jump('6:3')" id="6:3">
+                <button class="piece red-piece" id="18" onclick="select('18')"></button>
+            </div>
+            <div class="area white" id="6:4"></div>
+            <div class="area black" onclick="jump('6:5')" id="6:5">
+                <button class="piece red-piece" id="19" onclick="select('19')"></button>
+            </div>
+            <div class="area white" id="6:6"></div>
+            <div class="area black" onclick="jump('6:7')" id="6:7">
+                <button class="piece red-piece" id="20" onclick="select('20')"></button>
+            </div>
 
-              <div class="area black" id="7:0"></div>
-              <div class="area white" id="7:1"></div>
-              <div class="area black" id="7:2"></div>
-              <div class="area white" id="7:3"></div>
-              <div class="area black" id="7:4"></div>
-              <div class="area white" id="7:5"></div>
-              <div class="area black" id="7:6"></div>
-              <div class="area white" id="7:7"></div>
+            <div class="area black" onclick="jump('7:0')" id="7:0">
+                <button class="piece red-piece" id="21" onclick="select('21')"></button>
+            </div>
+            <div class="area white" id="7:1"></div>
+            <div class="area black" onclick="jump('7:2')" id="7:2">
+                <button class="piece red-piece" id="22" onclick="select('22')"></button>
+            </div>
+            <div class="area white" id="7:3"></div>
+            <div class="area black" onclick="jump('7:4')" id="7:4">
+                <button class="piece red-piece" id="23" onclick="select('23')"></button>
+            </div>
+            <div class="area white" id="7:5"></div>
+            <div class="area black" onclick="jump('7:6')" id="7:6">
+                <button class="piece red-piece" id="24" onclick="select('24')"></button>
+            </div>
+            <div class="area white" id="7:7"></div>
 
           </div>
       </div>
    </body>
    <script>
-      const socket = io("localhost:3333");
+    //   const socket = io("localhost:3333");
     </script>
 </html>
