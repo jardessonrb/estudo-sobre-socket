@@ -3,15 +3,15 @@ var destinoDaPeca = '';
 var vezDeJogar = null;
 var jogoIniciado = false;
 var ultimaPecaSelecionada  = null;
+var pontosJogador1 = document.getElementById("pontos-jogador-1");
+var pontosJogador2 = document.getElementById("pontos-jogador-2");
 const jogador1 = "jogador1";
 const jogador2 = "jogador2";
+
 
 function reset(){
     posicaoInialDaPeca = '';
     destinoDaPeca = '';
-    // vezDeJogar = null;
-    // jogoIniciado = false;
-    // ultimaPecaSelecionada  = null;
 }
 
 function select(idButton) {
@@ -43,10 +43,19 @@ function jump(coordinate){
     }
 
     const [lineStarting, columnStarting ] = posicaoInialDaPeca.split(":");
-    const [lineDestination, columnDestinaion ] = coordinate.split(":");
-    // console.log({lineStarting, columnStarting, lineDestination, columnDestinaion});
+    const [lineDestination, columnDestination ] = coordinate.split(":");
+    const diferencaLine = calculoModulo(lineDestination - lineStarting);
+
+    if(diferencaLine === 2){
+        const divRival = document.getElementById(`${Number(lineStarting)+1}:${Number(columnDestination)-1}`);
+        divRival.removeChild(divRival.firstChild);
+    }
+
     div.appendChild(button);
     vezDeJogar = alternaVez(button.id);
+    console.log({diferencaLine});
+
+    
 }
 
 function setJogador(idButton){
@@ -73,3 +82,6 @@ function verifyCoordinate(coordinates, idButton){
     }
 }
 
+function calculoModulo(value){
+    return value < 0 ? (value * (-1)) : value;
+}
