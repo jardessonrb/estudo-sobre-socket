@@ -5,6 +5,7 @@ var jogoIniciado = false;
 var ultimaPecaSelecionada  = null;
 var pontosJogador1 = null;
 var pontosJogador2 = null;
+var jogadas = null;
 const jogador1 = "jogador1";
 const jogador2 = "jogador2";
 
@@ -28,12 +29,13 @@ function select(idButton) {
         alert("Não é sua vez de jogar");
     }
 
+    jogadas = document.getElementById("jogadasnapartida");
     pontosJogador1 = document.getElementById("pontosjogador1");
     pontosJogador2 = document.getElementById("pontosjogador2");
 }
 
 function jump(coordinate){
-    const div    = document.getElementById(coordinate);
+    const div = document.getElementById(coordinate);
     if(div.firstElementChild){
         return;
     }
@@ -43,18 +45,90 @@ function jump(coordinate){
         return;
     }
 
-    const [lineStarting, columnStarting ] = posicaoInialDaPeca.split(":");
-    const [lineDestination, columnDestination ] = coordinate.split(":");
-    const diferencaLine = calculoModulo(lineDestination - lineStarting);
-
-    if(diferencaLine === 2){
-        const divRival = document.getElementById(`${Number(lineStarting)+1}:${Number(columnDestination)-1}`);
-        divRival.removeChild(divRival.firstChild);
-        setPointsGamer(button.id);
+    const coordinates = splitCoordeantes(coordinate);
+    if(!verifyCoordinate(coordinates)){
+        alert("Jogada invalida ...");
+        return;
     }
 
-    div.appendChild(button);
-    vezDeJogar = alternaVez(button.id);
+    const { lineStarting, lineDestination, columnStarting, columnDestination } = coordinates;
+    if(setJogador(button.id) === jogador1){
+        const diferencaOrigemDestino = lineDestination - lineStarting;
+        if(diferencaOrigemDestino === -1){
+            alert("Jogada invalida");
+            return;
+        }
+
+        if(diferencaOrigemDestino === 2){
+            if(columnStarting < columnDestination){
+                const divRival = document.getElementById(`${Number(lineStarting) + 1}:${Number(columnStarting) + 1}`);
+                divRival.removeChild(divRival.firstElementChild);
+                div.appendChild(button);
+                setPointsGamer(button.id);
+                alternaVez(button.id);
+                return;
+            }
+            if(columnStarting > columnDestination){
+                const divRival = document.getElementById(`${Number(lineStarting) + 1}:${Number(columnStarting) - 1}`);
+                divRival.removeChild(divRival.firstElementChild);
+                div.appendChild(button);
+                setPointsGamer(button.id);
+                alternaVez(button.id);
+                return;
+            }
+        }
+
+        if(diferencaOrigemDestino === 1){
+            div.appendChild(button);
+            alternaVez(button.id);
+            return;
+        }
+    }else {
+        const diferencaOrigemDestino = lineDestination - lineStarting;
+        if(diferencaOrigemDestino === 1){
+            alert("Jogada invalida");
+            return;
+        }
+
+        if(diferencaOrigemDestino === -2){
+            if(columnStarting > columnDestination){
+                const divRival = document.getElementById(`${Number(lineStarting) - 1}:${Number(columnStarting) - 1}`);
+                divRival.removeChild(divRival.firstElementChild);
+                div.appendChild(button);
+                setPointsGamer(button.id);
+                alternaVez(button.id);
+                return;
+            }
+            if(columnStarting < columnDestination){
+                const divRival = document.getElementById(`${Number(lineStarting) - 1}:${Number(columnStarting) + 1}`);
+                divRival.removeChild(divRival.firstElementChild);
+                div.appendChild(button);
+                setPointsGamer(button.id);            
+                alternaVez(button.id);
+                return;
+            }
+        }
+
+        if(diferencaOrigemDestino === -1){
+            div.appendChild(button)
+            alternaVez(button.id);
+            return;
+        }
+    }
+
+}
+
+
+function splitCoordeantes(coordinate){
+    const [lineStarting, columnStarting ] = posicaoInialDaPeca.split(":");
+    const [lineDestination, columnDestination ] = coordinate.split(":");
+
+    return {
+        lineStarting,
+        columnStarting,
+        lineDestination,
+        columnDestination
+    }
 }
 
 function setJogador(idButton){
@@ -68,10 +142,12 @@ function setJogador(idButton){
 }
 
 function alternaVez(idButton){
-    return setJogador(idButton) === jogador1 ? jogador2 : jogador1;
+    vezDeJogar = setJogador(idButton) === jogador1 ? jogador2 : jogador1;
+    setJogadas();
+    return;
 }
 
-function verifyCoordinate(coordinates, idButton){
+function verifyCoordinate(coordinates){
     if(coordinates.lineStarting === coordinates.lineDestination){
         return false;
     }
@@ -79,16 +155,20 @@ function verifyCoordinate(coordinates, idButton){
     if(coordinates.columnStarting === coordinates.columnDestinaion){
         return false;
     }
-}
 
-function calculoModulo(value){
-    return value < 0 ? (value * (-1)) : value;
+    return true;
 }
 
 function setPointsGamer(idButton){
     if(setJogador(idButton) === jogador1){
-        pontosJogador1.innerText = Number(pontosJogador1.innerText) + 1;
+        pontosJogador1.innerText = Number(pontosJogador1.innerText) - 1;
     }else {
-        pontosJogador2.innerText = Number(pontosJogador2.innerText) + 1;
+        pontosJogador2.innerText = Number(pontosJogador2.innerText) - 1;
     }
+
+    return;
+}
+
+function setJogadas(){
+    jogadas.innerText = Number(jogadas.innerText) + 1;
 }
