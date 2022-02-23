@@ -14,7 +14,7 @@ function reset(){
     destinoDaPeca = '';
 }
 
-function select(idButton) {
+function selectPiece(idButton) {
     if(vezDeJogar === null){
         vezDeJogar = setJogador(idButton);
         ultimaPecaSelecionada = idButton;
@@ -34,7 +34,7 @@ function select(idButton) {
     pontosJogador2 = document.getElementById("pontosjogador2");
 }
 
-function jump(coordinate){
+function movePiece(coordinate){
     const div = document.getElementById(coordinate);
     if(div.firstElementChild){
         return;

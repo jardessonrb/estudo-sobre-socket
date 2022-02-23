@@ -148,6 +148,26 @@
       </div>
    </body>
    <script>
-    //   const socket = io("localhost:3333");
+      const socket = io("localhost:3333");
+      function select(id){
+          selectPiece(id);
+      }
+
+      function jump(coordenate, isMove){
+        if(!isMove){
+            movePiece(coordenate);
+        }else{
+            const id = document.getElementById(coordenate).firstElementChild.id;
+            console.log(`Dados enviados: ${id}-${coordenate}`)
+            select(id);
+            movePiece(coordenate);
+            socket.emit("move-adversario-piece", {id, coordenate});
+        }
+      }
+
+      socket.on("move-my-piece", ({id, coordenate}) => {
+        console.log(`Dados recebidos: ${id}-${coordenate}`)
+        jump(coordenate, true);
+      })
     </script>
 </html>
